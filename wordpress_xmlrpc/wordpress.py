@@ -48,7 +48,7 @@ class WordPressBase(object):
         return data
 
     def __repr__(self):
-        return '<%s: %s>' % (self.__class__.__name__, str(self).encode('utf-8'))
+        return '<%s: %s>' % (self.__class__.__name__, str(self))
 
 
 class WordPressTaxonomy(WordPressBase):
@@ -120,7 +120,7 @@ class WordPressPost(WordPressBase):
 
     def __str__(self):
         if hasattr(self, 'title'):
-            return self.title
+            return self.title.encode('utf-8')
         return unicode('')
 
 
