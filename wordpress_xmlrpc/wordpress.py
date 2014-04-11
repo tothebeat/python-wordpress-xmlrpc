@@ -53,15 +53,15 @@ class WordPressBase(object):
 
 class WordPressTaxonomy(WordPressBase):
     definition = {
-        'name': FieldMap('name', default=''),
+        'cap': 'cap',
+        'hierarchical': 'hierarchical',
+        'is_builtin': '_builtin',
         'label': 'label',
         'labels': 'labels',
-        'hierarchical': 'hierarchical',
+        'name': FieldMap('name', default=''),
+        'object_type': 'object_type',
         'public': 'public',
         'show_ui': 'show_ui',
-        'cap': 'cap',
-        'is_builtin': '_builtin',
-        'object_type': 'object_type'
     }
 
     def __unicode__(self):
@@ -73,14 +73,14 @@ class WordPressTaxonomy(WordPressBase):
 class WordPressTerm(WordPressBase):
     definition = {
         'id': 'term_id',
+        'count': IntegerFieldMap('count'),
+        'description': 'description',
         'group': 'term_group',
+        'name': FieldMap('name', default=''),
+        'parent': 'parent',
+        'slug': 'slug',
         'taxonomy': 'taxonomy',
         'taxonomy_id': 'term_taxonomy_id',
-        'name': FieldMap('name', default=''),
-        'slug': 'slug',
-        'description': 'description',
-        'parent': 'parent',
-        'count': IntegerFieldMap('count')
     }
 
     def __unicode__(self):
@@ -91,31 +91,31 @@ class WordPressTerm(WordPressBase):
 
 class WordPressPost(WordPressBase):
     definition = {
-        'id': 'post_id',
-        'user': 'post_author',
+        'comment_status': 'comment_status',
+        'content': 'post_content',
+        'custom_fields': 'custom_fields',
         'date': DateTimeFieldMap('post_date_gmt'),
         'date_modified': DateTimeFieldMap('post_modified_gmt'),
-        'slug': 'post_name',
-        'post_status': 'post_status',
-        'title': FieldMap('post_title', default='Untitled'),
-        'content': 'post_content',
+        'enclosure': 'enclosure',
         'excerpt': 'post_excerpt',
+        'guid': 'guid',
+        'id': 'post_id',
         'link': 'link',
-        'comment_status': 'comment_status',
+        'menu_order': IntegerFieldMap('menu_order'),
+        'mime_type': 'post_mime_type',
+        'parent_id': 'post_parent',
+        'password': 'post_password',
         'ping_status': 'comment_status',
+        'post_format': 'post_format',
+        'post_status': 'post_status',
+        'post_type': FieldMap('post_type', default='post'),
+        'slug': 'post_name',
+        'sticky': 'sticky',
         'terms': TermsListFieldMap(WordPressTerm, 'terms'),
         'terms_names': 'terms_names',
-        'custom_fields': 'custom_fields',
-        'enclosure': 'enclosure',
-        'password': 'post_password',
-        'post_format': 'post_format',
         'thumbnail': 'post_thumbnail',
-        'sticky': 'sticky',
-        'post_type': FieldMap('post_type', default='post'),
-        'parent_id': 'post_parent',
-        'menu_order': IntegerFieldMap('menu_order'),
-        'guid': 'guid',
-        'mime_type': 'post_mime_type',
+        'title': FieldMap('post_title', default='Untitled'),
+        'user': 'post_author',
     }
 
     def __unicode__(self):
@@ -134,18 +134,18 @@ class WordPressPage(WordPressPost):
 class WordPressComment(WordPressBase):
     definition = {
         'id': 'comment_id',
-        'user': 'user_id',
-        'post': 'post_id',
-        'post_title': 'post_title',
-        'parent': 'comment_parent',
-        'date_created': DateTimeFieldMap('date_created_gmt'),
-        'status': 'status',
-        'content': FieldMap('content', default=''),
-        'link': 'link',
         'author': 'author',
-        'author_url': 'author_url',
         'author_email': 'author_email',
         'author_ip': 'author_ip',
+        'author_url': 'author_url',
+        'content': FieldMap('content', default=''),
+        'date_created': DateTimeFieldMap('date_created_gmt'),
+        'link': 'link',
+        'parent': 'comment_parent',
+        'post': 'post_id',
+        'post_title': 'post_title',
+        'status': 'status',
+        'user': 'user_id',
     }
 
     def __unicode__(self):
@@ -157,10 +157,10 @@ class WordPressComment(WordPressBase):
 class WordPressBlog(WordPressBase):
     definition = {
         'id': 'blogid',
+        'is_admin': FieldMap('isAdmin', default=False),
         'name': FieldMap('blogName', default=''),
         'url': 'url',
         'xmlrpc': 'xmlrpc',
-        'is_admin': FieldMap('isAdmin', default=False),
     }
 
     def __unicode__(self):
@@ -172,8 +172,8 @@ class WordPressBlog(WordPressBase):
 class WordPressAuthor(WordPressBase):
     definition = {
         'id': 'user_id',
-        'user_login': 'user_login',
         'display_name': FieldMap('display_name', default=''),
+        'user_login': 'user_login',
     }
 
     def __unicode__(self):
@@ -185,17 +185,17 @@ class WordPressAuthor(WordPressBase):
 class WordPressUser(WordPressBase):
     definition = {
         'id': 'user_id',
-        'username': 'username',
-        'roles': 'roles',
-        'nickname': 'nickname',
-        'url': 'url',
+        'bio': 'bio',
+        'display_name': 'display_name',
+        'email': 'email',
         'first_name': 'first_name',
         'last_name': 'last_name',
-        'registered': DateTimeFieldMap('registered'),
-        'bio': 'bio',
-        'email': 'email',
         'nicename': 'nicename',
-        'display_name': 'display_name',
+        'nickname': 'nickname',
+        'registered': DateTimeFieldMap('registered'),
+        'roles': 'roles',
+        'url': 'url',
+        'username': 'username',
     }
 
     def __unicode__(self):
@@ -207,14 +207,14 @@ class WordPressUser(WordPressBase):
 class WordPressMedia(WordPressBase):
     definition = {
         'id': 'attachment_id',
-        'parent': 'parent',
-        'title': FieldMap('title', default=''),
-        'description': 'description',
         'caption': 'caption',
         'date_created': DateTimeFieldMap('date_created_gmt'),
+        'description': 'description',
         'link': 'link',
-        'thumbnail': 'thumbnail',
         'metadata': 'metadata',
+        'parent': 'parent',
+        'thumbnail': 'thumbnail',
+        'title': FieldMap('title', default=''),
     }
 
     def __unicode__(self):
@@ -227,8 +227,8 @@ class WordPressOption(WordPressBase):
     definition = {
         'name': FieldMap('name', default=''),
         'description': 'desc',
-        'value': FieldMap('value', default=''),
         'read_only': FieldMap('readonly', default=False),
+        'value': FieldMap('value', default=''),
     }
 
     def __unicode__(self):
@@ -239,19 +239,19 @@ class WordPressOption(WordPressBase):
 
 class WordPressPostType(WordPressBase):
     definition = {
-        'name': 'name',
+        'cap': 'cap',
+        'hierarchical': 'hierarchical',
+        'is_builtin': '_builtin',
         'label': FieldMap('label', default=''),
         'labels': 'labels',
-        'cap': 'cap',
         'map_meta_cap': 'map_meta_cap',
-        'hierarchical': 'hierarchical',
         'menu_icon': 'menu_icon',
         'menu_position': 'menu_position',
+        'name': 'name',
         'public': 'public',
         'show_in_menu': 'show_in_menu',
-        'taxonomies': 'taxonomies',
-        'is_builtin': '_builtin',
         'supports': 'supports',
+        'taxonomies': 'taxonomies',
     }
 
     def __unicode__(self):
